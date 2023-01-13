@@ -1,0 +1,20 @@
+.carousel {
+  position: relative;
+}
+.carousel img {
+  height: 100vh;
+}
+.carousel_caption {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.header_title {
+  font-size: 4.2rem;
+}
+.full_dark {
+  background: #1e2327;
+}
+.banner_btn {
+  width: 120px;
+}
