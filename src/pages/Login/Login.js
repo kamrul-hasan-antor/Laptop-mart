@@ -33,12 +33,32 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     googleProvider(googleNewProvider)
       .then((res) => {
-        const user = res.user;
-        console.log(user);
-        setLoginError("");
+        const { email, displayName, photoURL } = res.user;
+        const loggedInUser = {
+          fullName: displayName,
+          photoURL,
+          email,
+          userType: "buyer",
+          phoneNumber: "",
+          isVerified: false,
+        };
 
+        fetch("http://localhost:5000/addUsers", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(loggedInUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
+
+        setLoginError("");
         navigate(from, { replace: true });
       })
+
       .catch((err) => {
         setLoginError(err.message);
       });

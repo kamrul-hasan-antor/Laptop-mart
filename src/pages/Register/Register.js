@@ -35,8 +35,15 @@ const Register = () => {
         console.log(error);
       });
 
-    const loggedInUser = { fullName, photoURL, email, userType, phoneNumber };
-
+    const loggedInUser = {
+      fullName,
+      photoURL,
+      email,
+      userType: "admin",
+      phoneNumber,
+      isVerified: false,
+    };
+    console.log(loggedInUser);
     fetch("http://localhost:5000/addUsers", {
       method: "POST",
       headers: {
