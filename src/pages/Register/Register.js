@@ -1,5 +1,5 @@
 import { updateProfile } from "firebase/auth";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 
@@ -8,6 +8,8 @@ const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
+  const [error, setError] = useState("");
 
   const handleRegisterUser = (e) => {
     e.preventDefault();
@@ -19,6 +21,15 @@ const Register = () => {
     const userType = form.userType.value;
     const phoneNumber = form.phoneNumber.value;
 
+    const loggedInUser = {
+      fullName,
+      photoURL,
+      email,
+      userType,
+      phoneNumber,
+      isVerified: false,
+    };
+
     createUser(email, password)
       .then((res) => {
         updateProfile(auth.currentUser, {
@@ -26,35 +37,26 @@ const Register = () => {
           photoURL,
         });
         const user = res.user;
-
+        fetch("http://localhost:5000/addUsers", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(loggedInUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            form.reset();
+          });
         console.log(user);
         form.reset();
+        setError("");
         navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
-      });
-
-    const loggedInUser = {
-      fullName,
-      photoURL,
-      email,
-      userType: "admin",
-      phoneNumber,
-      isVerified: false,
-    };
-    console.log(loggedInUser);
-    fetch("http://localhost:5000/addUsers", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(loggedInUser),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        form.reset();
+        setError(error);
       });
   };
   return (
@@ -149,6 +151,9 @@ const Register = () => {
               className="form-control"
               id="exampleInputPassword1"
             />
+          </div>
+          <div>
+            <p className="text-danger">{error ? "Eamil is in used" : ""}</p>
           </div>
           <div className="mb-3 text-center">
             Already have an account? <Link to="/login">Login Now</Link>

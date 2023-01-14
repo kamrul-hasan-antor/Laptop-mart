@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -6,6 +6,14 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [loadedUser, setLoadedUser] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/user?email=${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setLoadedUser(data));
+  }, [user?.email]);
+
   const handleSignOut = () => {
     logOut()
       .then(() => {})
@@ -38,10 +46,34 @@ const NavBar = () => {
                 My Reviews
               </NavLink>
             )}*/}
-            {user?.email === "antor95hasan@gmail.com" ? (
-              <NavLink to="/admin" className="pe-3 text-light nav-link">
-                Admin
+            {loadedUser[0]?.userType === "buyer" ? (
+              <NavLink to="/myOrders" className="pe-3 text-light nav-link">
+                My orders
               </NavLink>
+            ) : (
+              ""
+            )}
+            {loadedUser[0]?.userType === "admin" ? (
+              <>
+                <NavLink to="/allSelers" className="pe-3 text-light nav-link">
+                  All Sellers
+                </NavLink>
+                <NavLink to="/allBuyers" className="pe-3 text-light nav-link">
+                  All Buyers
+                </NavLink>
+              </>
+            ) : (
+              ""
+            )}
+            {loadedUser[0]?.userType === "seller" ? (
+              <>
+                <NavLink to="/addProduct" className="pe-3 text-light nav-link">
+                  Add Product
+                </NavLink>
+                <NavLink to="/myProducts" className="pe-3 text-light nav-link">
+                  My Products
+                </NavLink>
+              </>
             ) : (
               ""
             )}

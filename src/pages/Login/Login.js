@@ -1,5 +1,10 @@
 import React, { useContext, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 import { GoogleAuthProvider } from "firebase/auth";
 import { AuthContext } from "../../context/AuthProvider";
@@ -21,11 +26,9 @@ const Login = () => {
     logInUser(email, password)
       .then((res) => {
         const user = res.user;
-        console.log(user);
         form.reset();
         setLoginError("");
         navigate(from, { replace: true });
-        console.log(user);
       })
       .catch((err) => setLoginError(err.message));
   };
