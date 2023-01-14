@@ -1,10 +1,5 @@
 import React, { useContext, useState } from "react";
-import {
-  Link,
-  useLoaderData,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { GoogleAuthProvider } from "firebase/auth";
 import { AuthContext } from "../../context/AuthProvider";
@@ -46,7 +41,7 @@ const Login = () => {
           isVerified: false,
         };
 
-        fetch("http://localhost:5000/addUsers", {
+        fetch("https://laptop-mart-server-rho.vercel.app/addUsers", {
           method: "POST",
           headers: {
             "content-type": "application/json",

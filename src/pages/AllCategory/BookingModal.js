@@ -43,7 +43,7 @@ const BookingModal = ({ show, handleClose, modalData }) => {
       productId: _id,
     };
 
-    fetch("http://localhost:5000/addOrders", {
+    fetch("https://laptop-mart-server-rho.vercel.app/addOrders", {
       method: "POST",
       headers: {
         "content-type": "application/json",

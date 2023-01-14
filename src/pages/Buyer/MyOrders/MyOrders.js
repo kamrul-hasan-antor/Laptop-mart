@@ -3,11 +3,13 @@ import { AuthContext } from "../../../context/AuthProvider";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
-  // http://localhost:5000/orders?email=antor123@gmail.com
+  // https://laptop-mart-server-rho.vercel.app/orders?email=antor123@gmail.com
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/orders?email=${user?.email}`)
+    fetch(
+      `https://laptop-mart-server-rho.vercel.app/orders?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setOrders(data));
   }, [user?.email]);

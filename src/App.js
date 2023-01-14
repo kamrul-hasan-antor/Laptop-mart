@@ -64,7 +64,9 @@ function App() {
             </PrivateRoute>
           ),
           loader: ({ params }) =>
-            fetch(`http://localhost:5000/allCategories/${params.category}`),
+            fetch(
+              `https://laptop-mart-server-rho.vercel.app/allCategories/${params.category}`
+            ),
         },
       ],
     },

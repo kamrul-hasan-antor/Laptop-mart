@@ -9,7 +9,7 @@ const NavBar = () => {
   const [loadedUser, setLoadedUser] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user?email=${user?.email}`)
+    fetch(`https://laptop-mart-server-rho.vercel.app/user?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => setLoadedUser(data));
   }, [user?.email]);

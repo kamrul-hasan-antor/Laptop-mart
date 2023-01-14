@@ -37,7 +37,7 @@ const Register = () => {
           photoURL,
         });
         const user = res.user;
-        fetch("http://localhost:5000/addUsers", {
+        fetch("https://laptop-mart-server-rho.vercel.app/addUsers", {
           method: "POST",
           headers: {
             "content-type": "application/json",
