@@ -29,6 +29,7 @@ const BookingModal = ({ show, handleClose, modalData }) => {
     const userNumber = form.userNumber.value;
     console.log(userName, userEmail, sellPrice, userLocation, userNumber);
     const order = {
+      productName,
       userName,
       userEmail,
       sellPrice,
