@@ -20,4 +20,9 @@
 }
 select {
   height: 38px;
+  display: inline;
+}
+.user_logo {
+  width: 40px;
+  height: 40px;
 }

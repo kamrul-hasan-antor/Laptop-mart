@@ -36,6 +36,7 @@ const Login = () => {
         const user = res.user;
         console.log(user);
         setLoginError("");
+
         navigate(from, { replace: true });
       })
       .catch((err) => {

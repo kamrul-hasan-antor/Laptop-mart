@@ -16,7 +16,9 @@ const Register = () => {
     const photoURL = form.photoURL.value;
     const email = form.email.value;
     const password = form.password.value;
-    const category = form.category.value;
+    const userType = form.userType.value;
+    const phoneNumber = form.phoneNumber.value;
+
     createUser(email, password)
       .then((res) => {
         updateProfile(auth.currentUser, {
@@ -24,13 +26,28 @@ const Register = () => {
           photoURL,
         });
         const user = res.user;
-        user["category"] = category;
+
         console.log(user);
         form.reset();
         navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
+      });
+
+    const loggedInUser = { fullName, photoURL, email, userType, phoneNumber };
+
+    fetch("http://localhost:5000/addUsers", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(loggedInUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        form.reset();
       });
   };
   return (
@@ -61,11 +78,11 @@ const Register = () => {
                 htmlFor="exampleInputEmail1"
                 className="form-label fw-semibold"
               >
-                Category
+                User Type
               </label>
               <select
-                name="category"
-                className="form-select form-select-sm"
+                name="userType"
+                className="form-select form-select-sm "
                 aria-label=".form-select-sm example"
               >
                 <option defaultValue value="buyer">
@@ -99,6 +116,17 @@ const Register = () => {
               type="text"
               className="form-control"
               id="exampleInputImg"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputImg" className="form-label fw-semibold">
+              Phone Number
+            </label>
+            <input
+              name="phoneNumber"
+              type="text"
+              className="form-control"
+              id="exampleInputIm"
             />
           </div>
           <div className="mb-3">
