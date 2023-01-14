@@ -5,11 +5,14 @@ import AddProduct from "./pages/Seller/AddProduct/AddProduct";
 import Blog from "./pages/Blog/Blog";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
-import MyOrders from "./pages/MyOrders/MyOrders";
+import MyOrders from "./pages/Buyer/MyOrders/MyOrders";
 import Register from "./pages/Register/Register";
 import MyProduct from "./pages/Seller/MyProduct/MyProduct";
 import AllSerller from "./pages/Admin/AllSerller";
 import AllBuyers from "./pages/Admin/AllBuyers";
+import AllCategory from "./pages/AllCategory/AllCategory";
+
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -52,6 +55,16 @@ function App() {
         {
           path: "/allBuyers",
           element: <AllBuyers></AllBuyers>,
+        },
+        {
+          path: "/allCategory/:category",
+          element: (
+            <PrivateRoute>
+              <AllCategory></AllCategory>,
+            </PrivateRoute>
+          ),
+          loader: ({ params }) =>
+            fetch(`http://localhost:5000/allCategories/${params.category}`),
         },
       ],
     },
