@@ -21,6 +21,7 @@ const Login = () => {
     logInUser(email, password)
       .then((res) => {
         const user = res.user;
+        console.log(user);
         form.reset();
         setLoginError("");
         navigate(from, { replace: true });

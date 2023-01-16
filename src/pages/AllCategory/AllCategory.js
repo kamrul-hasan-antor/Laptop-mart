@@ -13,7 +13,7 @@ const AllCategory = () => {
     setModalData(data);
   };
   return (
-    <div className="container">
+    <div className="container py-5">
       <div className="row">
         {data.map((dat) => {
           const {
@@ -32,7 +32,7 @@ const AllCategory = () => {
             sellerName,
           } = dat;
           return (
-            <div key={_id} className="col-md-4 ">
+            <div key={_id} className="col-md-4">
               <div className="shadow-sm card p-2">
                 <img className="img-fluid" src={proImg} alt="" />
                 <div className="card-body">
@@ -67,7 +67,7 @@ const AllCategory = () => {
                   <h6>
                     <span className="fw-bold"> Location:</span> {location}
                   </h6>
-                  <p>{details.slice(0, 150)}</p>
+                  <p>{details.slice(0, 130)}</p>
                   <button
                     onClick={() => handleShow(dat)}
                     className="btn btn-primary"

@@ -1,15 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
-
+import { ToastContainer } from "react-toastify";
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
-  // https://laptop-mart-server-rho.vercel.app/orders?email=antor123@gmail.com
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch(
-      `https://laptop-mart-server-rho.vercel.app/orders?email=${user?.email}`
-    )
+    fetch(`http://localhost:5000/orders?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => setOrders(data));
   }, [user?.email]);
@@ -19,6 +16,7 @@ const MyOrders = () => {
       <table className="table table-striped">
         <thead>
           <tr>
+            <th scope="col">Image</th>
             <th scope="col">Name</th>
             <th scope="col">Seller Name</th>
             <th scope="col">Seler Email</th>
@@ -31,6 +29,9 @@ const MyOrders = () => {
           {orders.map((oder) => {
             return (
               <tr key={oder._id}>
+                <td>
+                  <img src={oder.proImg} alt="" className="user_logo" />
+                </td>
                 <td>{oder.productName}</td>
                 <td>{oder.sellerName}</td>
                 <td>{oder.sellerEmail}</td>
@@ -44,6 +45,18 @@ const MyOrders = () => {
           })}
         </tbody>
       </table>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };

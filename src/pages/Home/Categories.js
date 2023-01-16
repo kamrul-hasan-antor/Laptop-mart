@@ -8,12 +8,16 @@ const Categories = () => {
     fetch("https://laptop-mart-server-rho.vercel.app/products")
       .then((res) => res.json())
       .then((data) => {
-        const category = Array.from(
-          data
-            .reduce((map, obj) => map.set(obj.productCategory, obj), new Map())
-            .values()
-        );
+        const category = data.reduce((finalArr, current) => {
+          let obj = finalArr.find(
+            (item) => item.productCategory === current.productCategory
+          );
 
+          if (obj) {
+            return finalArr;
+          }
+          return finalArr.concat([current]);
+        }, []);
         setCategories(category);
       });
   }, []);
@@ -29,16 +33,18 @@ const Categories = () => {
         <div className="row">
           {categories.map((category) => {
             return (
-              <div key={category._id} className="col-md-4 col-12">
-                <img className="img-fluid" src={category.proImg} alt="" />
-                <p className="fs-3">{category.productCategory}</p>
-                <p>{category.details.slice(0, 100)}</p>
-                <Link
-                  to={`/allCategory/${category.productCategory}`}
-                  className="btn btn-primary"
-                >
-                  See All
-                </Link>
+              <div key={category._id} className="col-md-4 col-12 ">
+                <div className="border px-2 mt-5 pb-3">
+                  <img className="img-fluid" src={category.proImg} alt="" />
+                  <p className="fs-3">{category.productCategory}</p>
+                  <p>{category.details.slice(0, 100)}</p>
+                  <Link
+                    to={`/allCategory/${category.productCategory}`}
+                    className="btn btn-primary"
+                  >
+                    See All
+                  </Link>
+                </div>
               </div>
             );
           })}
