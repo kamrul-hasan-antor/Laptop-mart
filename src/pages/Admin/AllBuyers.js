@@ -4,7 +4,7 @@ const AllBuyers = () => {
   const [buyers, setBuyers] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/users/buyers")
+    fetch("https://laptop-mart-server-rho.vercel.app/users/buyers")
       .then((res) => res.json())
       .then((data) => {
         const buyer = data.reduce((finalArr, current) => {
