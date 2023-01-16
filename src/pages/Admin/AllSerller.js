@@ -4,7 +4,9 @@ const AllSerller = () => {
   const [sellers, setSellers] = useState([]);
 
   useEffect(() => {
-    fetch("https://laptop-mart-server-rho.vercel.app/users/sellers")
+    fetch(
+      "https://laptop-mart-server-kamrul-hasan-antor.vercel.app/users/sellers"
+    )
       .then((res) => res.json())
       .then((data) => {
         const seller = data.reduce((finalArr, current) => {
